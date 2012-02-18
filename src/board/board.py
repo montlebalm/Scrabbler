@@ -4,15 +4,13 @@ import math
 
 class Board():
 	grid = []
-	width = Config.width
-	height = Config.height
 	start = (0, 0)
 	mods = {}
 	
 	def __init__(self):
 		# Get the starting position
-		start_x = int(math.floor(self.width / 2))
-		start_y = int(math.floor(self.height / 2))
+		start_x = int(math.floor(Config.width / 2))
+		start_y = int(math.floor(Config.height / 2))
 		self.start = (start_x, start_y)
 		
 		# Get each quadrant and combine
@@ -48,10 +46,10 @@ class Board():
 		return quad
 	
 	def print_board(self):
-		for rn in range(self.height):
+		for rn in range(Config.height):
 			row = ""
 			
-			for cn in range(self.width):
+			for cn in range(Config.width):
 				row += str(self.grid[rn][cn])
 				
 			print row
@@ -59,10 +57,10 @@ class Board():
 	def build(self, mods):
 		grid = []
 		
-		for rn in range(self.height):
+		for rn in range(Config.height):
 			grid.append([])
 			
-			for cn in range(self.width):
+			for cn in range(Config.width):
 				t = Tile(rn, cn)
 				
 				# See if these coords have a modifier
