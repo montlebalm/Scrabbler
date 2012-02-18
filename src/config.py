@@ -4,7 +4,7 @@ from solver import letter
 class Config:
 	
 	# Anagram
-	dictionary_filepath = "../../enable1.txt"
+	dictionary_filepath = "../../dictionary.txt"
 	
 	# Board
 	height = 15
