@@ -11,5 +11,5 @@ class Test(unittest.TestCase):
     def test_match(self):
         w = words.Words()
         w.load()
-        matches = w.get_words('dictionary')
+        matches = w.get_words('tooth', [("h", 4)])
         print matches
