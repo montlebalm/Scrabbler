@@ -1,6 +1,10 @@
-.DS_Store
 .dropbox
 .project
 .pydevproject
 *.pyc
 src/board/*.pyc
+src/board/__init__.pyc
+src/board/__init__.pyc
+src/board/modifiers.pyc
+src/solver/letter.pyc
+src/solver/__init__.pyc
