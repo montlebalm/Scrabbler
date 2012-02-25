@@ -1,5 +1,5 @@
 from tile import Tile
-from config import Config
+import config
 import math
 
 class Board():
@@ -9,21 +9,41 @@ class Board():
 	
 	def __init__(self):
 		# Get the starting position
-		start_x = int(math.floor(Config.width / 2))
-		start_y = int(math.floor(Config.height / 2))
+		start_x = int(math.floor(config.width / 2))
+		start_y = int(math.floor(config.height / 2))
 		self.start = (start_x, start_y)
 		
 		# Get each quadrant and combine
-		mods_nw = Config.mods_nw
-		mods_ne = self.rotate_mods(mods_nw, (7, 0))
-		mods_se = self.rotate_mods(mods_ne, (7, 0))
-		mods_sw = self.rotate_mods(mods_nw, (0, 7))
-		self.mods = self.combine_dicts(mods_nw, mods_sw, mods_ne, mods_se)
+		mods_nw = config.mods_nw
+		mods_ne = self.__rotate_mods(mods_nw, (0, 7))
+		mods_se = self.__rotate_mods(mods_ne, (0, 7))
+		mods_sw = self.__rotate_mods(mods_nw, (7, 0))
+		self.mods = self.__combine_dicts(mods_nw, mods_sw, mods_ne, mods_se)
 		
 		# Construct the actual grid of tiles
-		self.grid = self.build(self.mods)
+		self.grid = self.__build(self.mods)
 	
-	def combine_dicts(self, *args):
+	def __str__(self):
+		rows = ""
+		
+		for y in range(config.width):
+			row = ""
+			
+			if y == 0:
+				for x in range(config.height):
+					space = "  " if x < 10 else " "
+					row += "{0}{1}".format(x, space)
+				
+				row += "\n"
+			
+			for x in range(config.height):
+				row += str(self.grid[x][y])
+				
+			rows += row + " " + str(y) + "\n"
+
+		return rows
+	
+	def __combine_dicts(self, *args):
 		combined = {}
 		
 		for arg in args:
@@ -32,7 +52,7 @@ class Board():
 		
 		return combined
 	
-	def rotate_mods(self, base, offset):
+	def __rotate_mods(self, base, offset):
 		quad = {}
 		
 		# Always use the NW quadrant as a base
@@ -45,37 +65,19 @@ class Board():
 			
 		return quad
 	
-	def print_board(self):
-		for rn in range(Config.height):
-			row = ""
-			
-			for cn in range(Config.width):
-				row += str(self.grid[rn][cn])
-				
-			print row
-	
-	def build(self, mods):
+	def __build(self, mods):
 		grid = []
 		
-		for rn in range(Config.height):
+		for x in range(config.height):
 			grid.append([])
 			
-			for cn in range(Config.width):
-				t = Tile(rn, cn)
+			for y in range(config.width):
+				t = Tile((x, y))
 				
 				# See if these coords have a modifier
-				if (rn, cn) in mods:
-					t.modifier = mods[(rn, cn)]
+				if (x, y) in mods:
+					t.modifier = mods[(x, y)]
 					
-				grid[rn].append(t)
+				grid[x].append(t)
 		
 		return grid
-	
-	def get_letter_count(self, letter):
-		count = 0
-		
-		for tile in self.grid:
-			if tile.letter == letter:
-				count += 1
-		
-		return count

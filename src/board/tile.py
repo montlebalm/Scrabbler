@@ -1,15 +1,16 @@
 class Tile():
 	modifier = None
 	letter = None
-	row = None
-	col = None
+	coord = None
 	
-	def __init__(self, row, col):
-		self.row = row
-		self.col = col
+	def __init__(self, coord):
+		self.coord = coord
 		
 	def __str__(self):
-		if self.modifier is not None:
-			return self.modifier
+		if self.letter:
+			return "[" + self.letter + "]"
 		else:
-			return "[]"
+			if self.modifier is not None:
+				return self.modifier
+			else:
+				return "[ ]"

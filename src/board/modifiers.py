@@ -1,5 +1,5 @@
 class Modifier():
-	DL = "DL"
-	DW = "DW"
-	TL = "TL"
-	TW = "TW"
+	DL = "D_L"
+	DW = "D_W"
+	TL = "T_L"
+	TW = "T_W"
