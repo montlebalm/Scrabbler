@@ -1,6 +1,6 @@
 from letter import Letter
 
-filepath = "../../dictionary.txt"
+filepath = "../dictionary.txt"
 
 letters = {
     'a': Letter('a', 9, 1),

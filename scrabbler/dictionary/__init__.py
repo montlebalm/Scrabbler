@@ -1,5 +1,3 @@
-#!/opt/local/bin/python
-
 import config
 from words import Words
 
